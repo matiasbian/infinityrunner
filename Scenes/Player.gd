@@ -1,20 +1,28 @@
-extends RigidBody2D
+extends KinematicBody2D
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+const GRAVITY = 200.0
+const WALK_SPEED = 200
+
 var animator
 
-func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
-	animator = find_node("Spr_Ch")
-	set_process(true)
+var velocity = Vector2()
 
-func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-	if (Input.is_action_pressed("ui_right")):
-		translate(Vector2(1,0) * 100* delta)
-		#animator.animation = "Running"
+func _ready():
+	animator  = get_node("Spr_Ch")
+
+func _physics_process(delta):
+    #velocity.y += delta * GRAVITY
+
+    if Input.is_action_pressed("ui_left"):
+        velocity.x = -WALK_SPEED
 		
+    elif Input.is_action_pressed("ui_right"):
+        velocity.x =  WALK_SPEED
+    else:
+        velocity.x = 0
+
+    # We don't need to multiply velocity by delta becuase MoveAndSlide already takes delta time into account.
+
+    # The second parameter of move_and_slide is the normal pointing up.
+    # In the case of a 2d platformer, in Godot upward is negative y, which translates to -1 as a normal.
+    move_and_slide(velocity, Vector2(0, -1))
