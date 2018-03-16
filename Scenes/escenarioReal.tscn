@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Escenario.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
+
+[node name="Node2D" type="Node2D" index="0"]
+
+[node name="Piso1" parent="." index="0" instance=ExtResource( 1 )]
+
+position = Vector2( 551.304, 396.032 )
+
+[node name="Piso2" parent="." index="1" instance=ExtResource( 1 )]
+
+position = Vector2( 853.607, 534.657 )
+
+[node name="RigidBody2D" parent="." index="2" instance=ExtResource( 2 )]
+
+position = Vector2( 523.725, 222.074 )
+
+

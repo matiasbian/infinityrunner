@@ -9,10 +9,22 @@ var velocity = Vector2()
 
 func _ready():
 	animator  = get_node("Spr_Ch")
+	
+	set_process(true)
+	
+func _process(delta):
+	if Input.is_action_pressed("ui_left") :
+		animator.animation = "Running"
+		animator.flip_h = true
+	elif Input.is_action_pressed("ui_right") :
+		animator.animation = "Running"
+		animator.flip_h = false
+	else:
+		animator.animation = "Idle"
 
 func _physics_process(delta):
-    #velocity.y += delta * GRAVITY
-
+    velocity.y += delta * GRAVITY
+	
     if Input.is_action_pressed("ui_left"):
         velocity.x = -WALK_SPEED
 		
@@ -20,6 +32,8 @@ func _physics_process(delta):
         velocity.x =  WALK_SPEED
     else:
         velocity.x = 0
+		
+		
 
     # We don't need to multiply velocity by delta becuase MoveAndSlide already takes delta time into account.
 
